@@ -33,11 +33,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\models\AllUsersViewModel.ts" />
     <None Remove="ClientApp\src\app\models\Currencies.ts" />
     <None Remove="ClientApp\src\app\models\UserVewModel.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\models\AllUsersViewModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\Currencies.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\UserVewModel.ts" />
   </ItemGroup>

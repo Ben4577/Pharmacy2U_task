@@ -37,8 +37,8 @@ export class CurrencyConversionComponent implements OnInit {
                 this.user.timeConverted = new Date();
                 this.currencyFormat = this.user.currencySelected;
 
-            //save
-                let subscription = this.userService.save(this.user).subscribe(result => {
+            //save Users convertion
+                    this.userService.save(this.user).subscribe(result => {
                     this.updatedSuccesfully = "Users Conversion has been Updated Successfully"
                     this.adminUpdateError = "";
             },

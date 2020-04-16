@@ -11,6 +11,5 @@ namespace Pharmacy2U_task.Models
         public double GBPAmount { get; set; }
         public double ConvertedAmount { get; set; }
         public DateTime TimeConverted { get; set; }
-
     }
 }

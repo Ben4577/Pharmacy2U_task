@@ -1,1 +1,19 @@
-<p>currency-query works!</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Currency Type</th>
+      <th>GBP Amount</th>
+      <th>Converted Amount</th>
+      <th>TimeConverted</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let p of userResults.userConversions">
+      <td>{{c.CurrencyType}}</td>
+      <td>{{c.GBPAmount}}</td>
+      <td>{{c.ConvertedAmount}}</td>
+      <td>{{c.TimeConverted}}</td>
+    </tr>
+  </tbody>
+</table>

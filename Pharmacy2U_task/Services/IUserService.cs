@@ -10,6 +10,5 @@ namespace Pharmacy2U_task.Services
     {
         List<User> InitialiseUserList();
         List<User> SaveUserConversions(UserViewModel user, List<User> userListSaved);
-        List<User> GetUsersConversions();
     }
 }

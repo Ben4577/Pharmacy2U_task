@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
+import { User } from '../models/AllUsersViewModel';
 
 @Component({
   selector: 'app-currency-query',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CurrencyQueryComponent implements OnInit {
 
-  constructor() { }
+    constructor(private userService: UserService) { }
 
-  ngOnInit() {
+    userResults: User[] = [];
+
+
+    ngOnInit() {
+        //display Users
+        this.userService.getUsersConversions().subscribe(result => {
+            this.userResults = result;
+        }
+        );
+
   }
 
 }

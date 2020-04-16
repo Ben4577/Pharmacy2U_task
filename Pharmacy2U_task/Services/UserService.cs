@@ -137,12 +137,6 @@ namespace Pharmacy2U_task.Services
 
 
 
-        public List<User> GetUsersConversions()
-        {
-            //Return Users to UI
-           return userList;
-        }
-
 
     }
 }

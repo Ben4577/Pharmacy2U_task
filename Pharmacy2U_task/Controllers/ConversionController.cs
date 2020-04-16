@@ -48,7 +48,6 @@ namespace Pharmacy2U_task.Controllers
             else
             {
                 //populate list with sample Users
-                //userList = new List<User>();
                 userList = _userService.InitialiseUserList();
             }
       
@@ -59,12 +58,24 @@ namespace Pharmacy2U_task.Controllers
             return Ok(user);
         }
 
-        [HttpGet]
+        [HttpGet("getUsersConversions")]
         public IActionResult GetUsersConversions()
         {
-           var userConversions = _userService.GetUsersConversions();
-           return Ok(userConversions);
+            //Get all Data from Session to display
+            var getUserList = HttpContext.Session.GetString(sessionKey);
+
+            if (getUserList != null)
+            {
+                userList = JsonConvert.DeserializeObject<List<User>>(getUserList);
+            }
+            else
+            {
+                //populate list with sample Users
+                userList = _userService.InitialiseUserList();
+            }
+            return Ok(userList);
         }
+
 
         }
     }
