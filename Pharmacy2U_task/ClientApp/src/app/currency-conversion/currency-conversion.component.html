@@ -1,0 +1,62 @@
+<h1>Currency Converter</h1>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+
+      <form #f="ngForm" (ngSubmit)="save(f.value)">
+
+        <div class="form-group">
+          <label for="title">First Name</label>
+          <input #firstName="ngModel" [(ngModel)]="user.firstName" name="firstName" id="firstName" type="text" class="form-control" required>
+          <div class="alert alert-danger" *ngIf="firstName.touched && firstName.invalid">
+            your First Name is required.
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="currencies">Foreign Currencies</label>
+          <select #currencySelected="ngModel" [(ngModel)]="user.currencySelected" name="currencySelected" id="currencySelected" class="form-control" required>
+            <option value=""></option>
+            <option *ngFor="let c of currencies" [value]="c.name">
+              {{c.name}}
+            </option>
+          </select>
+          <div class="alert alert-danger" *ngIf="currencySelected.touched && currencySelected.invalid">
+            A Foreign Currency is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="gBPAmount"></label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">GBP Amount to Convert</span>
+            </div>
+            <input #gBPAmount="ngModel" [(ngModel)]="user.gBPAmount" name="gBPAmount" id="gBPAmount" type="number" class="form-control" required>
+          </div>
+        </div>
+        <div class="alert alert-danger" *ngIf="gBPAmount.touched && gBPAmount.invalid">
+          <div *ngIf="gBPAmount.errors.required">A GBP Currency is required.</div>
+        </div>
+
+        <button [disabled]="!f.valid" class="btn btn-primary">Save</button>
+
+      </form>
+
+      <br>
+
+      <div *ngIf="currencyFormat !=''">
+        <p style="color: green;">The converted amount is: {{user.convertedAmount |  currency: currencyFormat}}</p>
+      </div>
+
+      <br />
+      <p style="color: red;">{{adminUpdateError}}</p>
+      <p style="color: green;">{{updatedSuccesfully}}</p>
+    </div>
+
+
+  </div>
+</div>
