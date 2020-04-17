@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { User } from '../models/AllUsersViewModel';
+import { User, UserConversion } from '../models/AllUsersViewModel';
 
 @Component({
   selector: 'app-currency-query',
@@ -11,26 +11,30 @@ export class CurrencyQueryComponent implements OnInit {
 
     constructor(private userService: UserService) { }
 
-    userResults: User[] = [];
-    filteredResults: User[] = [];
-    names: any[];
-    userConversions: any[];
+    //userResults: User[] = [];
+    userNames: any[];
+    userConversions: UserConversion[];
+    selectedName: string;
 
 
     ngOnInit() {
-        //Get the Users
-        //Due to time constraints table could not be completed
-        this.userService.getUserNames().subscribe(result => {
-            console.log(result);
+        //Get the User Names
+        this.userService.getUserNames().subscribe(result => {          
+            this.userNames = result;
+            console.log(this.userNames);
+        });           
+    }
 
-            this.names = result;
+
+    onNameSelected() {
+        console.log(this.selectedName);
+        //get the Conversion Data for this User
+        this.userService.getUsersConversions(this.selectedName).subscribe(result => {
+            this.userConversions = result;
+            console.log(this.userConversions);
         });
+    }
 
-            this.userService.getUsersConversions().subscribe(result => {
-                this.userResults = result;
 
-                this.filteredResults = this.userResults
-            });
-        }
 
 }

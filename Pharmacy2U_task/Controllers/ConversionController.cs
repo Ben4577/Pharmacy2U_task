@@ -43,29 +43,6 @@ namespace Pharmacy2U_task.Controllers
 
             if (getUserList != null)
             {
-                 userList = JsonConvert.DeserializeObject<List<User>>(getUserList);
-            }
-            else
-            {
-                //populate list with sample Users
-                userList = _userService.InitialiseUserList();
-            }
-      
-            var updatedUserList =  _userService.SaveUserConversions(user, userList);
-            //Save UserList to Session State      
-            HttpContext.Session.SetString(sessionKey, JsonConvert.SerializeObject(updatedUserList));
-
-            return Ok(user);
-        }
-
-        [HttpGet("getUsersConversions")]
-        public IActionResult GetUsersConversions()
-        {
-            //Get all Data from Session to display
-            var getUserList = HttpContext.Session.GetString(sessionKey);
-
-            if (getUserList != null)
-            {
                 userList = JsonConvert.DeserializeObject<List<User>>(getUserList);
             }
             else
@@ -73,8 +50,14 @@ namespace Pharmacy2U_task.Controllers
                 //populate list with sample Users
                 userList = _userService.InitialiseUserList();
             }
-            return Ok(userList);
+
+            var updatedUserList = _userService.SaveUserConversions(user, userList);
+            //Save UserList to Session State      
+            HttpContext.Session.SetString(sessionKey, JsonConvert.SerializeObject(updatedUserList));
+
+            return Ok();
         }
+
 
 
 
@@ -84,17 +67,53 @@ namespace Pharmacy2U_task.Controllers
             //Get all Data from Session to display
             var getUserList = HttpContext.Session.GetString(sessionKey);
 
-            var nameList = new List<User>();
+            var nameList = new List<UserName>();
 
             if (getUserList != null)
             {
                 userList = JsonConvert.DeserializeObject<List<User>>(getUserList);
-                nameList = userList.Where(x => x.FirstName.Length > 1).ToList();
+                nameList = userList.Select(
+                    x => new UserName 
+                    {
+                        Name = x.FirstName
+                    }
+                    ).ToList();
 
-            }
+            }         
             return Ok(nameList);
         }
 
 
+
+        [HttpGet("getUsersConversions/{selectedName}")]
+        public IActionResult GetUsersConversions(string selectedName)
+        {
+            //Get all Data from Session to display
+            var getUserList = HttpContext.Session.GetString(sessionKey);
+
+            List<UserConversion> userConversions = new List<UserConversion>();
+
+            if (getUserList != null)
+            {
+                userList = JsonConvert.DeserializeObject<List<User>>(getUserList);
+
+                //Get data to UI
+                var user = userList.Where(x => x.FirstName == selectedName)
+                    .Select(
+                    x => new User
+                    {
+                        UserConversions = x.UserConversions
+                    }).FirstOrDefault();
+
+                foreach (var us in user.UserConversions)
+                {
+                    userConversions.Add(us);
+                }
+            }
+            return Ok(userConversions);
+        }
+
+
+
     }
-    }
+}

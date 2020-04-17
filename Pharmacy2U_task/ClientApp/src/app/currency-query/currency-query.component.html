@@ -1,11 +1,11 @@
 
 <p>Select Name</p>
-<select>
-  <option *ngFor="let name of names">
-    {{name.firstName}}
+<select [(ngModel)]="selectedName" (change)="onNameSelected()">
+  <option *ngFor="let n of userNames"
+          [value]="n.name">
+    {{n.name}}
   </option>
 </select>
-
 
 
 <table class="table">
@@ -20,10 +20,10 @@
 
   <tbody>
     <tr *ngFor="let c of userConversions">
-      <td>{{c.CurrencyType}}</td>
-      <td>{{c.GBPAmount}}</td>
-      <td>{{c.ConvertedAmount}}</td>
-      <td>{{c.TimeConverted}}</td>
+      <td>{{c.currencyType}}</td>
+      <td>{{c.gbpAmount | number:'1.2-2'}}</td>
+      <td>{{c.convertedAmount | number:'1.2-2'}}</td>
+      <td>{{c.timeConverted}}</td>
     </tr>
   </tbody>
 </table>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserViewModel } from '../models/UserVewModel';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../models/AllUsersViewModel';
+import { User, UserConversion } from '../models/AllUsersViewModel';
 
 @Injectable({
     providedIn: 'root'
@@ -16,14 +16,15 @@ export class UserService {
     }
 
 
-    save(user: UserViewModel): Observable<UserViewModel> {
+    save(user: UserViewModel){
         const url = this.baseURL + 'saveUserConversion';
-        return this.http.post(url, user) as Observable<UserViewModel>;
+        return this.http.post(url, user);
     }
 
-    getUsersConversions(): Observable<User[]> {
-        const url = this.baseURL + 'getUsersConversions';
-        return this.http.get(url) as Observable<User[]>;
+
+    getUsersConversions(selectedName: string): Observable<UserConversion[]> {
+        const url = this.baseURL + 'getUsersConversions/' + selectedName;
+        return this.http.get(url) as Observable<UserConversion[]>;
     }
 
 
