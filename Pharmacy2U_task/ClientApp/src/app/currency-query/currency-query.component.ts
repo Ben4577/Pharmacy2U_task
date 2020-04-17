@@ -19,6 +19,7 @@ export class CurrencyQueryComponent implements OnInit {
 
     ngOnInit() {
         //Get the Users
+        //Due to time constraints table could not be completed
         this.userService.getUserNames().subscribe(result => {
             console.log(result);
 
