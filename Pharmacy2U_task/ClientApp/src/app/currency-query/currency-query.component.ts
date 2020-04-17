@@ -12,15 +12,24 @@ export class CurrencyQueryComponent implements OnInit {
     constructor(private userService: UserService) { }
 
     userResults: User[] = [];
+    filteredResults: User[] = [];
+    names: any[];
+    userConversions: any[];
 
 
     ngOnInit() {
-        //display Users
-        this.userService.getUsersConversions().subscribe(result => {
-            this.userResults = result;
-        }
-        );
+        //Get the Users
+        this.userService.getUserNames().subscribe(result => {
+            console.log(result);
 
-  }
+            this.names = result;
+        });
+
+            this.userService.getUsersConversions().subscribe(result => {
+                this.userResults = result;
+
+                this.filteredResults = this.userResults
+            });
+        }
 
 }

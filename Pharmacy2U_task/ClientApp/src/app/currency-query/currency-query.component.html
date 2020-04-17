@@ -1,3 +1,13 @@
+
+<p>Select Name</p>
+<select>
+  <option *ngFor="let name of names">
+    {{name.firstName}}
+  </option>
+</select>
+
+
+
 <table class="table">
   <thead>
     <tr>
@@ -9,7 +19,7 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let p of userResults.userConversions">
+    <tr *ngFor="let c of userConversions">
       <td>{{c.CurrencyType}}</td>
       <td>{{c.GBPAmount}}</td>
       <td>{{c.ConvertedAmount}}</td>

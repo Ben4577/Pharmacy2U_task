@@ -77,5 +77,24 @@ namespace Pharmacy2U_task.Controllers
         }
 
 
+
+        [HttpGet("getUserNames")]
+        public IActionResult GetUserNames()
+        {
+            //Get all Data from Session to display
+            var getUserList = HttpContext.Session.GetString(sessionKey);
+
+            var nameList = new List<User>();
+
+            if (getUserList != null)
+            {
+                userList = JsonConvert.DeserializeObject<List<User>>(getUserList);
+                nameList = userList.Where(x => x.FirstName.Length > 1).ToList();
+
+            }
+            return Ok(nameList);
         }
+
+
+    }
     }

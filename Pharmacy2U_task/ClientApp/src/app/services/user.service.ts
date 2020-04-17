@@ -21,9 +21,14 @@ export class UserService {
         return this.http.post(url, user) as Observable<UserViewModel>;
     }
 
-
     getUsersConversions(): Observable<User[]> {
         const url = this.baseURL + 'getUsersConversions';
+        return this.http.get(url) as Observable<User[]>;
+    }
+
+
+    getUserNames(): Observable<User[]> {
+        const url = this.baseURL + 'getUserNames';
         return this.http.get(url) as Observable<User[]>;
     }
 
